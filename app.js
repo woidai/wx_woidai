@@ -8,6 +8,12 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var logger = require('./routes/logger');
+
+var wechatapi = require('./routes/wechatapi');
+
+var wechat_pm = require('./routes/wechat_pm');
+
 var app = express();
 
 // view engine setup
@@ -16,7 +22,7 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+//app.use(logger.log4js.connectLogger(logger.logger('dev')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -24,6 +30,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use(logger.log4js.connectLogger(logger.logger('normal'),{level:'auto',format:':method :url'}));
+
+app.use('/wechat/callback', wechat_pm.callback);
+app.use('/wechat', wechat_pm.reply);
+app.use('/detail', wechat_pm.detail);
+app.use('/login', wechat_pm.login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

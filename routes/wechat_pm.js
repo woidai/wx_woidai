@@ -29,10 +29,9 @@ exports.callback = function (req, res) {
   });
 };
 
-exports.reply = wechat(config.mp, function (req, res, next) {
-   var message = req.weixin;
+exports.reply = wechat(config.mp.token, function (req, res, next) {
+  var message = req.weixin;
   if (message.FromUserName === 'hi') {
-    // 回复屌丝(普通回复)
     res.reply('呵呵');
   } 
   

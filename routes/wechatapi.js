@@ -1,7 +1,8 @@
 var wechatapi = require('wechat-api');
 var fs = require('fs');
+var config = require('../config');
 
-wechatapi = new wechatapi('wxfcebc23a0a9b0a4e', '0c064ac6d92610aa4e2a1dc8abad8485', function (callback) {
+var api = new wechatapi(config.mp.appid, config.secret, function (callback) {
   // 传入一个获取全局token的方法
   fs.readFile('access_token.txt', 'utf8', function (err, txt) {
     if (err) {return callback(err);}
@@ -15,4 +16,5 @@ wechatapi = new wechatapi('wxfcebc23a0a9b0a4e', '0c064ac6d92610aa4e2a1dc8abad848
 
 
 
-exports.wechatapi = wechatapi;
+
+exports.api = api;

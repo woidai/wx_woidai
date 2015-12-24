@@ -29,7 +29,7 @@ exports.callback = function (req, res) {
   });
 };
 
-exports.reply = wechat(config.mp.token, function (req, res, next) {
+exports.reply = wechat(config.mp, function (req, res, next) {
   var message = req.weixin;
   if (message.FromUserName === 'hi') {
     res.reply('呵呵');

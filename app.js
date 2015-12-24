@@ -7,10 +7,11 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var videos = require('./routes/video');
 
 var logger = require('./routes/logger');
 
-var wechatapi = require('./routes/wechatapi');
+var api = require('./routes/wechatapi');
 
 var wechat_pm = require('./routes/wechat_pm');
 
@@ -32,10 +33,14 @@ app.use('/', routes);
 app.use('/users', users);
 app.use(logger.log4js.connectLogger(logger.logger('normal'),{level:'auto',format:':method :url'}));
 
+app.use('/api/videos',videos);
+
 app.use('/wechat/callback', wechat_pm.callback);
 app.use('/wechat', wechat_pm.reply);
 app.use('/detail', wechat_pm.detail);
 app.use('/login', wechat_pm.login);
+
+//app.use('/api',api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

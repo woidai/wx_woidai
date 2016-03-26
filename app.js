@@ -9,9 +9,9 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var videos = require('./routes/video');
 
-var logger = require('./routes/logger');
+//var logger = require('./routes/logger');
 
-var api = require('./routes/wechatapi');
+//var api = require('./routes/wechatapi');
 
 var wechat_pm = require('./routes/wechat_pm');
 
@@ -31,8 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use(logger.log4js.connectLogger(logger.logger('normal'),{level:'auto',format:':method :url'}));
-
+//app.use(logger.log4js.connectLogger(logger.logger('normal'),{level:'auto',format:':method :url'}));
+app.use(logger('combined'));
 app.use('/api/videos',videos);
 
 app.use('/wechat/callback', wechat_pm.callback);

@@ -9,11 +9,10 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var videos = require('./routes/video');
 
+var multer  = require('multer'); //文件上传
+
 //var logger = require('./routes/logger');
 
-//var api = require('./routes/wechatapi');
-
-var wechat_pm = require('./routes/wechat_pm');
 
 var app = express();
 
@@ -35,10 +34,6 @@ app.use('/users', users);
 app.use(logger('combined'));
 app.use('/api/videos',videos);
 
-app.use('/wechat/callback', wechat_pm.callback);
-app.use('/wechat', wechat_pm.reply);
-app.use('/detail', wechat_pm.detail);
-app.use('/login', wechat_pm.login);
 
 //app.use('/api',api);
 
@@ -48,6 +43,17 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
+var upload = multer({ dest: './public/images' })
+
+app.post('/photo/upload', upload.single('avatar'), function (req, res, next) {
+  // req.file 是 `avatar` 文件的信息
+  // req.body 将具有文本域数据, 如果存在的话
+  console.log(upload.single('avatar'));
+  console.log(req.file);
+  res.status(200).json({ file: req.file});
+})
 
 // error handlers
 

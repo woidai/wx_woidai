@@ -1,6 +1,6 @@
 <h1>Add a Video</h1>
 
-<form  >
+<form method='post' action='/photo/upload' enctype='multipart/form-data'>
     <div class="form-group">
         <label>Title</label>        
         <input class="form-control" ng-model="video.title"></input>
@@ -9,5 +9,8 @@
         <label>Description</label>
         <textarea class="form-control" ng-model="video.description"></textarea>
     </div>
-    <input type="button" class="btn btn-primary" value="Save" ng-click="save()"></input>  
+	<div class="form-group">
+		<input type="file" ng-model="video.img"><br>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Save" ng-click="save()"></input>  
 </form>
